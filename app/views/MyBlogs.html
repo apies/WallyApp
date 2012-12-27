@@ -6,3 +6,10 @@
   </ul>
 
 </div>
+
+<div ng-show="selectedBlog.name"  class="hero-unit">
+	<h1 class='my-blog'  ng-bind="selectedBlog.name || '?'"> ?  </h1>
+	<p>Established: {{selectedBlog.published  | date:'fullDate' }}</p>
+	<p>Total Posts: {{selectedBlog.posts.totalItems}}</p>
+	<a href="/myblog/{{selectedBlog.id}}" class="btn btn-large btn-primary manage-blog">Manage Blog</a>
+</div>

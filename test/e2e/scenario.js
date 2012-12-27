@@ -10,7 +10,8 @@
       });
       return it('should be able to select one of sobrinas blogs', function() {
         element("a:contains('Loud')").click();
-        return expect(element(".active").text()).toMatch(/Loud Like Bulls/i);
+        expect(element(".active").text()).toMatch(/Loud Like Bulls/i);
+        return expect(element(".my-blog").text()).toMatch(/Loud Like Bulls/i);
       });
     });
   });
