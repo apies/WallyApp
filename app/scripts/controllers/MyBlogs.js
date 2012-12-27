@@ -1,8 +1,13 @@
 (function() {
   'use strict';
 
-  angular.module('WallyApp').controller('MyBlogsCtrl', function($scope) {
-    return $scope.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Testacular'];
-  });
+  var MyBlogsControl;
+
+  MyBlogsControl = function($scope, BloggerBlog) {
+    $scope.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'AngularJS'];
+    return $scope.blogs = BloggerBlog.query();
+  };
+
+  angular.module('WallyApp', ['WallyAppServices']).controller('MyBlogsCtrl', ['$scope', 'BloggerBlog', MyBlogsControl]);
 
 }).call(this);
