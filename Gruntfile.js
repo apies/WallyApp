@@ -20,7 +20,8 @@ module.exports = function( grunt ) {
       compile: {
         files: {
           'app/scripts/*.js': 'app/scripts/**/*.coffee',
-          'test/spec/*.js': 'test/spec/**/*.coffee'
+          'test/spec/*.js': 'test/spec/**/*.coffee',
+          'test/e2e/*.js': 'test/e2e/*.coffee'
         }
       }
     },
@@ -47,7 +48,7 @@ module.exports = function( grunt ) {
     // default watch configuration
     watch: {
       coffee: {
-        files: ['app/scripts/**/*.coffee', 'test/**/**/*.coffee'],
+        files: ['app/scripts/**/*.coffee', 'test/**/**/*.coffee', 'test/e2e/*.coffee'],
         tasks: 'coffee reload'
       },
       compass: {
@@ -174,4 +175,12 @@ module.exports = function( grunt ) {
       done(err);
     });
   });
+  grunt.registerTask('test-e2e', 'run the testacular test driver', function () {
+     var done = this.async();
+     require('child_process').exec('testacular start testacular-e2e.conf.js --single-run', function (err, stdout) {
+       grunt.log.write(stdout);
+       done(err);
+     });
+  });
+
 };
