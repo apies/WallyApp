@@ -1,11 +1,11 @@
 (function() {
   'use strict';
 
-  angular.module('WallyApp', []).config([
+  angular.module('WallyApp', ['WallyAppServices']).config([
     '$routeProvider', function($routeProvider) {
       return $routeProvider.when('/', {
         templateUrl: 'views/MyBlogs.html',
-        controller: 'MyBlogsCntrl'
+        controller: 'MyBlogsCtrl'
       }).otherwise({
         redirectTo: '/'
       });

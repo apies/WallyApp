@@ -1,1 +1,8 @@
-<p>This is the MyBlogs view.</p>
+<div class="hero-unit">
+  <h1>My Blogs</h1>
+
+  <ul class="nav nav-pills" >
+      <li ng-repeat="blog in blogs" class="active"> <a>{{blog.name}}</a></li>
+  </ul>
+
+</div>

@@ -8,6 +8,6 @@
     return $scope.blogs = BloggerBlog.query();
   };
 
-  angular.module('WallyApp', ['WallyAppServices']).controller('MyBlogsCtrl', ['$scope', 'BloggerBlog', MyBlogsControl]);
+  angular.module('WallyApp').controller('MyBlogsCtrl', ['$scope', 'BloggerBlog', MyBlogsControl]);
 
 }).call(this);
