@@ -6,8 +6,9 @@
       return $routeProvider.when('/', {
         templateUrl: 'views/MyBlogs.html',
         controller: 'MyBlogsCtrl'
-      }).otherwise({
-        redirectTo: '/'
+      }).when('/myblog/:blogId', {
+        templateUrl: 'views/BlogHome.html',
+        controller: 'BlogHomeCtrl'
       });
     }
   ]);
