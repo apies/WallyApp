@@ -1,7 +1,7 @@
 'use strict';
 
 
-#found this pattern from Misko:
+#found this pattern from Misko Hevery:
 #http://stackoverflow.com/questions/11850025/recommended-way-of-getting-data-from-the-server/11850027#comment15909222_11850027
 
 BloggerBlogModel = ($http, $q, $scope) ->
@@ -14,8 +14,7 @@ BloggerBlogModel = ($http, $q, $scope) ->
 		)
 	BloggerBlog.all = () ->
 		$http.get("api/blogs.json").then( (response) ->
-			result = response.data
-			return result
+			return response.data
 		)
 	BloggerBlog::say = () ->
 		"Hello #{@name}"

@@ -15,9 +15,7 @@
     };
     BloggerBlog.all = function() {
       return $http.get("api/blogs.json").then(function(response) {
-        var result;
-        result = response.data;
-        return result;
+        return response.data;
       });
     };
     BloggerBlog.prototype.say = function() {
