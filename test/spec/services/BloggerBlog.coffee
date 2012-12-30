@@ -12,20 +12,23 @@ describe 'Service: BloggerBlog', () ->
     $httpBackend = _$httpBackend_
     scope = $rootScope.$new()
     BloggerBlog = _BloggerBlog_
-    $httpBackend.whenGET('blogs/blogs.json').respond([{name: 'QLH'},{name: 'LLB'}])
-    $httpBackend.whenGET('blogs/1.json').respond({name: 'Quiet Like Horses'})
+    $httpBackend.whenGET('api/blogs.json').respond([{name: 'QLH'},{name: 'LLB'}])
+    $httpBackend.whenGET('api/blogs/1.json').respond({name: 'Quiet Like Horses'})
+
     
   it 'should fetch 2 blogs from XHR', () ->
-    blogs = BloggerBlog.query()
+    BloggerBlog.all().then(  (blogs) ->
+      expect(blogs[0].name).toBe('QLH')
+      expect(blogs[1].name).toBe('LLB')
+    )
     $httpBackend.flush()
-    expect(blogs.length).toBe(2)
-    expect(blogs[0].name).toBe('QLH')
+    
 
   it 'should fetch one blog from XHR by id', () ->
-    #for some reason this one succeeds without flush
-    blog = BloggerBlog.get(blogId: 1, (blog) ->
+    BloggerBlog.find(1).then (blog) ->
       expect(blog.name).toBe('Quiet Like Horses')
-    )
-    #$httpBackend.flush()
+      expect(blog.say()).toBe('Hello Quiet Like Horses')
+    $httpBackend.flush()
+
 
 

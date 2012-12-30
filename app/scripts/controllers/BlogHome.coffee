@@ -1,8 +1,8 @@
 'use strict'
 
 BlogHomeControl = ($scope, BloggerBlog, $routeParams) ->
-    $scope.blog = BloggerBlog.get(blogId: $routeParams.blogId, (blogg) ->
-    	console.log(blogg)
+    BloggerBlog.find($routeParams.blogId).then( (blogg) ->
+    	$scope.blog = blogg
     )
 
 

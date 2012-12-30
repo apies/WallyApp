@@ -3,18 +3,29 @@
 
   var BloggerBlogModel;
 
-  BloggerBlogModel = function($resource) {
-    return $resource('blogs/:blogId.json', {}, {
-      query: {
-        method: 'GET',
-        params: {
-          blogId: 'blogs'
-        },
-        isArray: 'true'
-      }
-    });
+  BloggerBlogModel = function($http, $q, $scope) {
+    var BloggerBlog;
+    BloggerBlog = function(data) {
+      return angular.extend(this, data);
+    };
+    BloggerBlog.find = function(blogId) {
+      return $http.get("api/blogs/" + blogId + ".json").then(function(response) {
+        return new BloggerBlog(response.data);
+      });
+    };
+    BloggerBlog.all = function() {
+      return $http.get("api/blogs.json").then(function(response) {
+        var result;
+        result = response.data;
+        return result;
+      });
+    };
+    BloggerBlog.prototype.say = function() {
+      return "Hello " + this.name;
+    };
+    return BloggerBlog;
   };
 
-  angular.module('WallyAppServices', ['ngResource']).factory('BloggerBlog', ['$resource', BloggerBlogModel]);
+  angular.module('WallyAppServices', []).factory('BloggerBlog', ['$http', '$q', BloggerBlogModel]);
 
 }).call(this);

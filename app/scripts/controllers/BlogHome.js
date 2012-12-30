@@ -4,10 +4,8 @@
   var BlogHomeControl;
 
   BlogHomeControl = function($scope, BloggerBlog, $routeParams) {
-    return $scope.blog = BloggerBlog.get({
-      blogId: $routeParams.blogId
-    }, function(blogg) {
-      return console.log(blogg);
+    return BloggerBlog.find($routeParams.blogId).then(function(blogg) {
+      return $scope.blog = blogg;
     });
   };
 

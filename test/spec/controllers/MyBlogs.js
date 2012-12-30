@@ -10,7 +10,7 @@
       var $httpBackend;
       $httpBackend = _$httpBackend_;
       scope = $rootScope.$new();
-      $httpBackend.whenGET('blogs/blogs.json').respond([
+      $httpBackend.whenGET('api/blogs.json').respond([
         {
           name: 'QLH'
         }, {

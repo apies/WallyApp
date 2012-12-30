@@ -13,7 +13,7 @@ describe 'Controller: MyBlogsCtrl', () ->
   beforeEach inject ($controller, _$httpBackend_, $rootScope) ->
     $httpBackend = _$httpBackend_
     scope = $rootScope.$new()
-    $httpBackend.whenGET('blogs/blogs.json').respond([{name: 'QLH'},{name: 'LLB'}])
+    $httpBackend.whenGET('api/blogs.json').respond([{name: 'QLH'},{name: 'LLB'}])
     
     MyBlogsCtrl = $controller 'MyBlogsCtrl', {
       $scope: scope
@@ -26,7 +26,7 @@ describe 'Controller: MyBlogsCtrl', () ->
 
   it 'should fetch a list of blogs from the BloggerBlog service', () ->
     expect(scope.blogs.length).toBe(2)
-    expect(scope.blogs[0].name).toBe('QLH')
+    expect(scope.blogs[0].name).toBe('QLH') 
 
   it 'should be able to select a blog', () ->
     scope.selectBlog(scope.blogs[0])

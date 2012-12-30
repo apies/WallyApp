@@ -9,7 +9,7 @@
     beforeEach(inject(function(_$httpBackend_, $rootScope, $routeParams, $controller) {
       var $httpBackend;
       $httpBackend = _$httpBackend_;
-      $httpBackend.whenGET('blogs/1.json').respond({
+      $httpBackend.whenGET('api/blogs/1.json').respond({
         name: 'QLH'
       });
       $routeParams.blogId = 1;
