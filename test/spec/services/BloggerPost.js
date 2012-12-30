@@ -22,7 +22,7 @@
         title: 'Quiet Like Horses Post2'
       });
     }));
-    iit('should fetch 2 posts from XHR', function() {
+    it('should fetch 2 posts from XHR', function() {
       BloggerPost.all('2360593805083673688').then(function(data) {
         var posts;
         posts = data;
@@ -31,13 +31,15 @@
       });
       return $httpBackend.flush();
     });
-    return it('should fetch one blog from XHR by id', function() {
-      return BloggerPost.find({
+    return iit('should fetch one post from XHR by id', function() {
+      BloggerPost.find({
         blogId: '2360593805083673688',
         postId: 1
-      }).then(function(blog) {
-        return expect(blog.name).toBe('Quiet Like Horses');
+      }).then(function(post) {
+        expect(post.title).toBe('Quiet Like Horses Post2');
+        return expect(post.say()).toBe('Hello Quiet Like Horses Post2');
       });
+      return $httpBackend.flush();
     });
   });
 
