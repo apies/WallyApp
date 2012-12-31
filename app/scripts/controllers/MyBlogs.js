@@ -5,9 +5,7 @@
 
   MyBlogsControl = function($scope, BloggerBlog) {
     $scope.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'AngularJS'];
-    BloggerBlog.all().then(function(blogs) {
-      return $scope.blogs = blogs;
-    });
+    $scope.blogs = BloggerBlog.all();
     return $scope.selectBlog = function(blog) {
       var blogg, _i, _len, _ref;
       _ref = $scope.blogs;

@@ -3,10 +3,10 @@
 MyBlogsControl = ($scope, BloggerBlog) ->
  	$scope.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'AngularJS']
  	#$scope.blogs = BloggerBlog.all()
+
+ 	$scope.blogs = BloggerBlog.all()
+
  	
- 	BloggerBlog.all().then( (blogs) ->
- 		$scope.blogs = blogs
- 	)
  	$scope.selectBlog = (blog) ->
  		blogg.activeBlog = '' for blogg in $scope.blogs
  		blog.activeBlog = 'active'

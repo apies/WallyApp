@@ -11,13 +11,19 @@ BloggerPostModel = ($http) ->
 	BloggerPost = (data) ->
 		angular.extend(@, data)
 	BloggerPost.find = ({blogId, postId}) ->
+		post = new BloggerPost()
 		$http.get("api/blogs/#{blogId}/posts/#{postId}.json").then( (response) ->
-			return new BloggerPost(response.data) 
+			post.instantiate(response.data) 
 		)
+		return post
 	BloggerPost.all = (blogId) ->
+		posts = []
 		$http.get("api/blogs/#{blogId}/posts.json").then( (response) ->
-			return response.data
+			posts.push post for post in response.data
 		)
+		return posts
+	BloggerPost::instantiate = (data) ->
+		angular.extend(@, data)
 	BloggerPost::say = () ->
 		"Hello #{@title}"
 

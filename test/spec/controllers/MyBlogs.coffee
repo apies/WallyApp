@@ -1,4 +1,4 @@
-'use strict'
+'use strict' 
 
 describe 'Controller: MyBlogsCtrl', () ->
 
@@ -7,7 +7,7 @@ describe 'Controller: MyBlogsCtrl', () ->
 
   MyBlogsCtrl = {}
   scope = {}
-  #$httpBackend = {}
+  $httpBackend = {}
 
   # Initialize the controller and a mock scope
   beforeEach inject ($controller, _$httpBackend_, $rootScope) ->

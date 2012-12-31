@@ -23,18 +23,18 @@
       });
     }));
     it('should fetch 2 blogs from XHR', function() {
-      BloggerBlog.all().then(function(blogs) {
-        expect(blogs[0].name).toBe('QLH');
-        return expect(blogs[1].name).toBe('LLB');
-      });
-      return $httpBackend.flush();
+      var blogs;
+      blogs = BloggerBlog.all();
+      $httpBackend.flush();
+      expect(blogs[0].name).toBe('QLH');
+      return expect(blogs[1].name).toBe('LLB');
     });
-    return it('should fetch one blog from XHR by id', function() {
-      BloggerBlog.find(1).then(function(blog) {
-        expect(blog.name).toBe('Quiet Like Horses');
-        return expect(blog.say()).toBe('Hello Quiet Like Horses');
-      });
-      return $httpBackend.flush();
+    return it('should fetch one blog from XHR the cool angular $resource way', function() {
+      var blog;
+      blog = BloggerBlog.find(1);
+      $httpBackend.flush();
+      expect(blog.say()).toBe('Hello Quiet Like Horses');
+      return expect(blog.name).toBe('Quiet Like Horses');
     });
   });
 

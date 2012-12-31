@@ -23,23 +23,20 @@
       });
     }));
     it('should fetch 2 posts from XHR', function() {
-      BloggerPost.all('2360593805083673688').then(function(data) {
-        var posts;
-        posts = data;
-        expect(posts.length).toBe(2);
-        return expect(posts[0].title).toBe('Post 1');
-      });
-      return $httpBackend.flush();
+      var posts;
+      posts = BloggerPost.all('2360593805083673688');
+      $httpBackend.flush();
+      expect(posts.length).toBe(2);
+      return expect(posts[0].title).toBe('Post 1');
     });
-    return iit('should fetch one post from XHR by id', function() {
-      BloggerPost.find({
+    return it('should fetch one post from XHR by id', function() {
+      var post;
+      post = BloggerPost.find({
         blogId: '2360593805083673688',
         postId: 1
-      }).then(function(post) {
-        expect(post.title).toBe('Quiet Like Horses Post2');
-        return expect(post.say()).toBe('Hello Quiet Like Horses Post2');
       });
-      return $httpBackend.flush();
+      $httpBackend.flush();
+      return expect(post.title).toBe('Quiet Like Horses Post2');
     });
   });
 

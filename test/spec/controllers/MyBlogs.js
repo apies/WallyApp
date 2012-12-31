@@ -2,12 +2,12 @@
   'use strict';
 
   describe('Controller: MyBlogsCtrl', function() {
-    var MyBlogsCtrl, scope;
+    var $httpBackend, MyBlogsCtrl, scope;
     beforeEach(module('WallyApp'));
     MyBlogsCtrl = {};
     scope = {};
+    $httpBackend = {};
     beforeEach(inject(function($controller, _$httpBackend_, $rootScope) {
-      var $httpBackend;
       $httpBackend = _$httpBackend_;
       scope = $rootScope.$new();
       $httpBackend.whenGET('api/blogs.json').respond([

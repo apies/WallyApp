@@ -1,4 +1,4 @@
-'use strict'
+'use strict' 
 
 describe 'Service: BloggerBlog', () ->
 
@@ -17,18 +17,27 @@ describe 'Service: BloggerBlog', () ->
 
     
   it 'should fetch 2 blogs from XHR', () ->
-    BloggerBlog.all().then(  (blogs) ->
-      expect(blogs[0].name).toBe('QLH')
-      expect(blogs[1].name).toBe('LLB')
-    )
+    blogs = BloggerBlog.all()
+    $httpBackend.flush()
+    expect(blogs[0].name).toBe('QLH')
+    expect(blogs[1].name).toBe('LLB')
+
+  # it 'should fetch one blog from XHR by id', () ->
+  #   BloggerBlog.find(1).then (blog) ->
+  #     expect(blog.name).toBe('Quiet Like Horses')
+  #     expect(blog.say()).toBe('Hello Quiet Like Horses')
+  #   $httpBackend.flush()
+
+  it 'should fetch one blog from XHR the cool angular $resource way', () ->
+    blog = BloggerBlog.find(1)
     $httpBackend.flush()
     
+    expect(blog.say()).toBe('Hello Quiet Like Horses')
+    expect(blog.name).toBe('Quiet Like Horses')
+    #console.log thing for thing in blog
+    #$httpBackend.flush()
 
-  it 'should fetch one blog from XHR by id', () ->
-    BloggerBlog.find(1).then (blog) ->
-      expect(blog.name).toBe('Quiet Like Horses')
-      expect(blog.say()).toBe('Hello Quiet Like Horses')
-    $httpBackend.flush()
+    
 
 
 

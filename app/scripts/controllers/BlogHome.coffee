@@ -1,9 +1,7 @@
 'use strict'
 
 BlogHomeControl = ($scope, BloggerBlog, $routeParams) ->
-    BloggerBlog.find($routeParams.blogId).then( (blogg) ->
-    	$scope.blog = blogg
-    )
+    $scope.blog = BloggerBlog.find($routeParams.blogId)
 
 
 angular.module('WallyApp').controller('BlogHomeCtrl', ['$scope', 'BloggerBlog','$routeParams', BlogHomeControl])

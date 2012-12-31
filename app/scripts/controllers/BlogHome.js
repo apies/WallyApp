@@ -4,9 +4,7 @@
   var BlogHomeControl;
 
   BlogHomeControl = function($scope, BloggerBlog, $routeParams) {
-    return BloggerBlog.find($routeParams.blogId).then(function(blogg) {
-      return $scope.blog = blogg;
-    });
+    return $scope.blog = BloggerBlog.find($routeParams.blogId);
   };
 
   angular.module('WallyApp').controller('BlogHomeCtrl', ['$scope', 'BloggerBlog', '$routeParams', BlogHomeControl]);
