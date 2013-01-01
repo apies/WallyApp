@@ -22,8 +22,8 @@ BloggerBlogModel = ($http) ->
 			blog
 		instantiate: (data) ->
 			angular.extend(@, data)
-		say: (data) ->
+		say: () ->
 			"Hello #{@name}"
 
-angular.module('WallyAppServices', []).factory('BloggerBlog', ['$http','$q', BloggerBlogModel])
+angular.module('WallyAppServices', []).factory('BloggerBlog', ['$http', BloggerBlogModel])
 

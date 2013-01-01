@@ -40,7 +40,7 @@
         return angular.extend(this, data);
       };
 
-      BloggerBlog.prototype.say = function(data) {
+      BloggerBlog.prototype.say = function() {
         return "Hello " + this.name;
       };
 
@@ -49,6 +49,6 @@
     })();
   };
 
-  angular.module('WallyAppServices', []).factory('BloggerBlog', ['$http', '$q', BloggerBlogModel]);
+  angular.module('WallyAppServices', []).factory('BloggerBlog', ['$http', BloggerBlogModel]);
 
 }).call(this);

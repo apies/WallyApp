@@ -3,7 +3,7 @@
 describe 'Service: BloggerPost', () ->
 
   # load the service's module
-  beforeEach module 'WallyAppServices'
+  beforeEach module 'WallyAppServices2'
 
   # instantiate service
   BloggerPost = {}

@@ -3,7 +3,7 @@
 
   describe('Service: BloggerPost', function() {
     var $httpBackend, BloggerPost;
-    beforeEach(module('WallyAppServices'));
+    beforeEach(module('WallyAppServices2'));
     BloggerPost = {};
     $httpBackend = {};
     beforeEach(inject(function(_BloggerPost_, _$httpBackend_, $rootScope) {
