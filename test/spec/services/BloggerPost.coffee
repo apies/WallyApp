@@ -4,14 +4,17 @@ describe 'Service: BloggerPost', () ->
 
   # load the service's module
   beforeEach module 'WallyAppServices2'
+  #beforeEach module 'OrmServiceModule'
 
   # instantiate service
   BloggerPost = {}
   $httpBackend = {}
-  beforeEach inject (_BloggerPost_, _$httpBackend_, $rootScope) ->
+  BloggerModel = {}
+  beforeEach inject (_BloggerPost_,  _$httpBackend_, _BloggerModel_ ) ->
     $httpBackend = _$httpBackend_
-    scope = $rootScope.$new()
+    #scope = $rootScope.$new()
     BloggerPost = _BloggerPost_
+    BloggerModel = _BloggerModel_
     $httpBackend.whenGET('api/blogs/2360593805083673688/posts.json').respond([{title: 'Post 1'},{title: 'Post2'}])
     $httpBackend.whenGET('api/blogs/2360593805083673688/posts/1.json').respond({title: 'Quiet Like Horses Post2'})
 
@@ -25,3 +28,11 @@ describe 'Service: BloggerPost', () ->
     post = BloggerPost.find(blogId: '2360593805083673688', postId: 1 )
     $httpBackend.flush()
     expect(post.title).toBe('Quiet Like Horses Post2')
+    expect(post.say()).toBe('Hello Quiet Like Horses Post2')
+
+  it 'can it extend BloggerModel', () ->
+    class BloggerThing extends BloggerModel
+      thing: 'ALan'
+    thing = new BloggerThing(thingType: 'Blog')
+    expect(thing.thingType).toBe('Blog')
+

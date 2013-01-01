@@ -1,13 +1,18 @@
 (function() {
   'use strict';
 
-  angular.module('WallyAppServices2', []).factory('BloggerPost', [
-    '$http', function($http) {
-      var BloggerPost;
-      BloggerPost = (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-        function BloggerPost(data) {
-          angular.extend(this, data);
+  angular.module('WallyAppServices2', ['OrmServiceModule']).factory('BloggerPost', [
+    '$http', 'BloggerModel', function($http, BloggerModel) {
+      var BloggerPost;
+      return BloggerPost = (function(_super) {
+
+        __extends(BloggerPost, _super);
+
+        function BloggerPost() {
+          return BloggerPost.__super__.constructor.apply(this, arguments);
         }
 
         BloggerPost.find = function(_arg) {
@@ -36,18 +41,13 @@
           return posts;
         };
 
-        BloggerPost.prototype.instantiate = function(data) {
-          return angular.extend(this, data);
-        };
-
         BloggerPost.prototype.say = function() {
           return "Hello " + this.title;
         };
 
         return BloggerPost;
 
-      })();
-      return BloggerPost;
+      })(BloggerModel);
     }
   ]);
 
