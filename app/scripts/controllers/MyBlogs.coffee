@@ -5,6 +5,7 @@ MyBlogsControl = ($scope, BloggerBlog) ->
  	#$scope.blogs = BloggerBlog.all()
 
  	$scope.blogs = BloggerBlog.all()
+ 	
 
  	
  	$scope.selectBlog = (blog) ->
