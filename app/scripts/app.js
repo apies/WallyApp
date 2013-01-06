@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('WallyApp', ['WallyAppServices']).config([
+  angular.module('WallyApp', ['WallyAppServices', 'WallyAppServices2']).config([
     '$routeProvider', function($routeProvider) {
       return $routeProvider.when('/', {
         templateUrl: 'views/MyBlogs.html',

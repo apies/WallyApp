@@ -1,9 +1,25 @@
 
-<div class="hero-unit">
-  <h1 class="blog-name-header">{{blog.name}}</h1>
+<div class="row">
 
-<!--   <ul class="nav nav-pills blogs nav-stacked" >
-      <li ng-repeat="blog in blogs" ng-class="blog.activeBlog" > <a ng-click='selectBlog(blog)' >{{blog.name}}</a></li>
-  </ul> -->
+		<div class="span3 well">
+		  <h3 class="blog-name-header" >{{blog.name}}</h3>
+	
+			<input ng-model="query" type="text" class="input-medium search-query">
+
+		
+
+		  <ul class="nav nav-pills posts nav-stacked side-nav" >
+		    <li ng-repeat="post in posts | filter:query" ng-class="post.active" > <a ng-click='selectPost(post)' >{{post.title}}</a></li>
+		  </ul>
+		</div>
+		<div class="span6 well">
+			<h3 class="post-title">{{selectedPost.title}}</h3>
+			<div ng-bind-html-unsafe="selectedPost.content" ></div>
+		</div>
+
 
 </div>
+
+
+
+

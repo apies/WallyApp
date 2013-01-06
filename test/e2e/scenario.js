@@ -15,15 +15,27 @@
       });
       return describe('BlogHome View', function() {
         beforeEach(function() {
-          return element("a:contains('Quiet')").click();
+          element("a:contains('Quiet')").click();
+          return element("a:contains('Manage')").click();
         });
-        return it('should be able to transition to the quiet like horses blog home view', function() {
+        it('should be able to transition to the quiet like horses blog home view', function() {
           var current_path;
-          expect(element(".my-blog").text()).toMatch(/Quiet Like Horses/i);
-          element("a:contains('Manage')").click();
+          expect(element(".blog-name-header").text()).toMatch(/Quiet Like Horses/i);
           current_path = browser().location().url();
           expect(current_path).toBe("/myblog/2360593805083673688");
           return expect(element(".blog-name-header").text()).toMatch(/Quiet Like Horses/i);
+        });
+        it('should contain a list of posts', function() {
+          return expect(repeater('.posts li').count()).toBe(480);
+        });
+        it('should select a post when i click on one of the posts in the list', function() {
+          element("a:contains('Happy Holidays!')").click();
+          return expect(element(".post-title").text()).toBe('Happy Holidays!');
+        });
+        return it('should filter the post list as the user types into the search box', function() {
+          expect(repeater('.posts li').count()).toBe(480);
+          input('query').enter('rings');
+          return expect(repeater('.posts li').count()).toBeLessThan(80);
         });
       });
     });

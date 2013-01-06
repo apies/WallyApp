@@ -12,7 +12,6 @@ describe 'Service: BloggerPost', () ->
   BloggerModel = {}
   beforeEach inject (_BloggerPost_,  _$httpBackend_, _BloggerModel_ ) ->
     $httpBackend = _$httpBackend_
-    #scope = $rootScope.$new()
     BloggerPost = _BloggerPost_
     BloggerModel = _BloggerModel_
     $httpBackend.whenGET('api/blogs/2360593805083673688/posts.json').respond([{title: 'Post 1'},{title: 'Post2'}])

@@ -3,11 +3,24 @@
 
   var BlogHomeControl;
 
-  BlogHomeControl = function($scope, BloggerBlog, $routeParams) {
+  BlogHomeControl = function($scope, BloggerBlog, BloggerPost, $routeParams) {
     $scope.blog = BloggerBlog.find($routeParams.blogId);
-    return console.log($scope.blog);
+    $scope.posts = BloggerPost.all($routeParams.blogId);
+    return $scope.selectPost = function(post) {
+      var _i, _len, _post, _ref;
+      _ref = $scope.posts;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        _post = _ref[_i];
+        _post.active = '';
+      }
+      post.active = 'active';
+      return $scope.selectedPost = BloggerPost.find({
+        blogId: $routeParams.blogId,
+        postId: post.id
+      });
+    };
   };
 
-  angular.module('WallyApp').controller('BlogHomeCtrl', ['$scope', 'BloggerBlog', '$routeParams', BlogHomeControl]);
+  angular.module('WallyApp').controller('BlogHomeCtrl', ['$scope', 'BloggerBlog', 'BloggerPost', '$routeParams', BlogHomeControl]);
 
 }).call(this);
