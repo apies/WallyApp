@@ -11,6 +11,7 @@
         }
 
         BloggerModel.prototype.instantiate = function(data) {
+          this.attributes = data;
           return angular.extend(this, data);
         };
 

@@ -5,11 +5,12 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   describe('Service: BloggerPost', function() {
-    var $httpBackend, BloggerModel, BloggerPost;
+    var $httpBackend, BloggerModel, BloggerPost, postParams;
     beforeEach(module('WallyAppServices2'));
     BloggerPost = {};
     $httpBackend = {};
     BloggerModel = {};
+    postParams = {};
     beforeEach(inject(function(_BloggerPost_, _$httpBackend_, _BloggerModel_) {
       $httpBackend = _$httpBackend_;
       BloggerPost = _BloggerPost_;
@@ -21,9 +22,15 @@
           title: 'Post2'
         }
       ]);
-      return $httpBackend.whenGET('api/blogs/2360593805083673688/posts/1.json').respond({
-        title: 'Quiet Like Horses Post2'
-      });
+      postParams = {
+        id: '1',
+        blog: {
+          id: '2360593805083673688'
+        },
+        title: 'Quiet Like Horses Post2',
+        content: "<img border=\"0\" height=\"214\" src=\"http://4.bp.blogspot.com/-DVkPAZvmdsk/T5DgSvXY8PI/AAAAAAAANSE/N4eEtvPsyFI/s320/whaley.jpg\" width=\"320\" />"
+      };
+      return $httpBackend.whenGET('api/blogs/2360593805083673688/posts/1.json').respond(postParams);
     }));
     it('should fetch 2 posts from XHR', function() {
       var posts;
@@ -42,7 +49,7 @@
       expect(post.title).toBe('Quiet Like Horses Post2');
       return expect(post.say()).toBe('Hello Quiet Like Horses Post2');
     });
-    return it('can it extend BloggerModel', function() {
+    it('can it extend BloggerModel', function() {
       var BloggerThing, thing;
       BloggerThing = (function(_super) {
 
@@ -61,6 +68,17 @@
         thingType: 'Blog'
       });
       return expect(thing.thingType).toBe('Blog');
+    });
+    return it('can send restful put updates to save to server', function() {
+      var post;
+      post = BloggerPost.find({
+        blogId: '2360593805083673688',
+        postId: 1
+      });
+      $httpBackend.flush();
+      $httpBackend.expectPUT('api/blogs/2360593805083673688/posts/1.json', postParams).respond(postParams);
+      post.resizeImages();
+      return post.updateAttributes();
     });
   });
 

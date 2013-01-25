@@ -6,7 +6,10 @@ BlogHomeControl = ($scope, BloggerBlog, BloggerPost, $routeParams) ->
     $scope.selectPost = (post) ->
     	_post.active = '' for _post in $scope.posts
     	post.active = 'active'
-    	$scope.selectedPost = BloggerPost.find( blogId: $routeParams.blogId, postId: post.id)
+    	sPost = BloggerPost.find( blogId: $routeParams.blogId, postId: post.id)
+    	$scope.selectedPost = sPost
+    $scope.resizeImages = () ->
+    	$scope.selectedPost.sizeAndUpdateImages()
     	
 
 

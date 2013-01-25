@@ -9,6 +9,7 @@ angular.module('OrmServiceModule', []).factory('BloggerModel', [ ($scope) ->
 		constructor: (data) ->
 			angular.extend(@, data)
 		instantiate: (data) ->
+			@attributes = data
 			angular.extend(@, data)
 ])
 

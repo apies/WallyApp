@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; 
 
 # BloggerPostModel = ($resource) ->
 #   $resource('blogs/:blogId/posts/:postId.json', {}, {query: { method: 'GET', params: {postId: 'posts' },isArray: 'true'}})
@@ -8,6 +8,12 @@
 
 angular.module('WallyAppServices2', ['OrmServiceModule']).factory('BloggerPost', [ '$http', 'BloggerModel', ($http, BloggerModel) ->
 	class BloggerPost extends BloggerModel
+		# constructor: (data) ->
+		# # 	super
+		# # 	@blogId = data['id']
+		# instantiate: () ->
+		# 	super
+
 		@find: ({blogId, postId}) ->
 			post = new BloggerPost
 			$http.get("api/blogs/#{blogId}/posts/#{postId}.json").then( (response) ->
@@ -22,5 +28,26 @@ angular.module('WallyAppServices2', ['OrmServiceModule']).factory('BloggerPost',
 			posts
 		say: () ->
 			"Hello #{@title}"
+		getImages: () ->
+			images = @content.match(/<img.*>/g).join("").replace(/(s[0-9]{3}[0-9]*)/g, 600)
+
+		resizeImages: () ->
+			biggerContent = @content?.replace(/(s[0-9]{3})\//g, 's600/')
+			@content = biggerContent?.replace(/height="[0-9]{3}"/g, '')?.replace(/width="[0-9]{3}"/g, '')
+			@
+		updateAttributes: () ->
+			@syncAttributes()
+			$http.put("api/blogs/#{@blog.id}/posts/#{@id}.json", @attributes).then( (response) ->
+				@instantiate(response.data) 
+			)
+		syncAttributes: () ->
+			{
+				content: @attributes['content'],
+				title: @attributes['title']
+			} = @
+		sizeAndUpdateImages: () ->
+			@resizeImages()
+			@updateAttributes()
+
 ])
 

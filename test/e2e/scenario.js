@@ -26,14 +26,14 @@
           return expect(element(".blog-name-header").text()).toMatch(/Quiet Like Horses/i);
         });
         it('should contain a list of posts', function() {
-          return expect(repeater('.posts li').count()).toBe(480);
+          return expect(repeater('.posts li').count()).toBe(820);
         });
         it('should select a post when i click on one of the posts in the list', function() {
           element("a:contains('Happy Holidays!')").click();
           return expect(element(".post-title").text()).toBe('Happy Holidays!');
         });
         return it('should filter the post list as the user types into the search box', function() {
-          expect(repeater('.posts li').count()).toBe(480);
+          expect(repeater('.posts li').count()).toBe(820);
           input('query').enter('rings');
           return expect(repeater('.posts li').count()).toBeLessThan(80);
         });

@@ -6,18 +6,22 @@
   BlogHomeControl = function($scope, BloggerBlog, BloggerPost, $routeParams) {
     $scope.blog = BloggerBlog.find($routeParams.blogId);
     $scope.posts = BloggerPost.all($routeParams.blogId);
-    return $scope.selectPost = function(post) {
-      var _i, _len, _post, _ref;
+    $scope.selectPost = function(post) {
+      var sPost, _i, _len, _post, _ref;
       _ref = $scope.posts;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         _post = _ref[_i];
         _post.active = '';
       }
       post.active = 'active';
-      return $scope.selectedPost = BloggerPost.find({
+      sPost = BloggerPost.find({
         blogId: $routeParams.blogId,
         postId: post.id
       });
+      return $scope.selectedPost = sPost;
+    };
+    return $scope.resizeImages = function() {
+      return $scope.selectedPost.sizeAndUpdateImages();
     };
   };
 

@@ -45,6 +45,34 @@
           return "Hello " + this.title;
         };
 
+        BloggerPost.prototype.getImages = function() {
+          var images;
+          return images = this.content.match(/<img.*>/g).join("").replace(/(s[0-9]{3}[0-9]*)/g, 600);
+        };
+
+        BloggerPost.prototype.resizeImages = function() {
+          var biggerContent, _ref, _ref1;
+          biggerContent = (_ref = this.content) != null ? _ref.replace(/(s[0-9]{3})\//g, 's600/') : void 0;
+          this.content = biggerContent != null ? (_ref1 = biggerContent.replace(/height="[0-9]{3}"/g, '')) != null ? _ref1.replace(/width="[0-9]{3}"/g, '') : void 0 : void 0;
+          return this;
+        };
+
+        BloggerPost.prototype.updateAttributes = function() {
+          this.syncAttributes();
+          return $http.put("api/blogs/" + this.blog.id + "/posts/" + this.id + ".json", this.attributes).then(function(response) {
+            return this.instantiate(response.data);
+          });
+        };
+
+        BloggerPost.prototype.syncAttributes = function() {
+          return this.attributes['content'] = this.content, this.attributes['title'] = this.title, this;
+        };
+
+        BloggerPost.prototype.sizeAndUpdateImages = function() {
+          this.resizeImages();
+          return this.updateAttributes();
+        };
+
         return BloggerPost;
 
       })(BloggerModel);
