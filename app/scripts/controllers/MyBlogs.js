@@ -14,8 +14,7 @@
         blogg.activeBlog = '';
       }
       blog.activeBlog = 'active';
-      $scope.selectedBlog = blog;
-      return console.log("..." + blog.name + ":" + blog.activeBlog);
+      return $scope.selectedBlog = blog;
     };
   };
 

@@ -20,8 +20,8 @@
       });
       return $scope.selectedPost = sPost;
     };
-    return $scope.resizeImages = function() {
-      return $scope.selectedPost.sizeAndUpdateImages();
+    return $scope.orderByComments = function() {
+      return $scope.orderProp = 'totalComments';
     };
   };
 

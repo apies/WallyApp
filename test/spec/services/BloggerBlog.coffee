@@ -22,20 +22,11 @@ describe 'Service: BloggerBlog', () ->
     expect(blogs[0].name).toBe('QLH')
     expect(blogs[1].name).toBe('LLB')
 
-  # it 'should fetch one blog from XHR by id', () ->
-  #   BloggerBlog.find(1).then (blog) ->
-  #     expect(blog.name).toBe('Quiet Like Horses')
-  #     expect(blog.say()).toBe('Hello Quiet Like Horses')
-  #   $httpBackend.flush()
 
   it 'should fetch one blog from XHR the cool angular $resource way', () ->
     blog = BloggerBlog.find(1)
     $httpBackend.flush()
-    
-    expect(blog.say()).toBe('Hello Quiet Like Horses')
     expect(blog.name).toBe('Quiet Like Horses')
-    #console.log thing for thing in blog
-    #$httpBackend.flush()
 
     
 

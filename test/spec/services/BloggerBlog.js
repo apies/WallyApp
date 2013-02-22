@@ -33,7 +33,6 @@
       var blog;
       blog = BloggerBlog.find(1);
       $httpBackend.flush();
-      expect(blog.say()).toBe('Hello Quiet Like Horses');
       return expect(blog.name).toBe('Quiet Like Horses');
     });
   });

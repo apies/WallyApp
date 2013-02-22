@@ -1,4 +1,4 @@
-'use strict'
+'use strict' 
 
 BlogHomeControl = ($scope, BloggerBlog, BloggerPost, $routeParams) ->
     $scope.blog = BloggerBlog.find($routeParams.blogId)
@@ -8,8 +8,8 @@ BlogHomeControl = ($scope, BloggerBlog, BloggerPost, $routeParams) ->
     	post.active = 'active'
     	sPost = BloggerPost.find( blogId: $routeParams.blogId, postId: post.id)
     	$scope.selectedPost = sPost
-    $scope.resizeImages = () ->
-    	$scope.selectedPost.sizeAndUpdateImages()
+    $scope.orderByComments = () ->
+        $scope.orderProp = 'totalComments'
     	
 
 

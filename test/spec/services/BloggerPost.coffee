@@ -35,7 +35,6 @@ describe 'Service: BloggerPost', () ->
     post = BloggerPost.find(blogId: '2360593805083673688', postId: 1 )
     $httpBackend.flush()
     expect(post.title).toBe('Quiet Like Horses Post2')
-    expect(post.say()).toBe('Hello Quiet Like Horses Post2')
 
   it 'can it extend BloggerModel', () ->
     class BloggerThing extends BloggerModel
@@ -47,7 +46,7 @@ describe 'Service: BloggerPost', () ->
     post = BloggerPost.find(blogId: '2360593805083673688', postId: 1 )
     $httpBackend.flush()
     $httpBackend.expectPUT('api/blogs/2360593805083673688/posts/1.json', postParams ).respond(postParams)
-    post.resizeImages()
+    post['title'] = (word[0].toUpperCase() + word[1..-1].toLowerCase() for word in post['title'].split /\s+/).join ' '
     post.updateAttributes()
 
 

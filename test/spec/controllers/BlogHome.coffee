@@ -1,4 +1,4 @@
-'use strict'
+'use strict' 
 
 describe 'Controller: BlogHomeCtrl', () ->
 
@@ -9,13 +9,34 @@ describe 'Controller: BlogHomeCtrl', () ->
   scope = {}
   $httpBackend = {}
 
+
+
+
+  
+
   # Initialize the controller and a mock scope
   beforeEach inject (_$httpBackend_, $rootScope, $routeParams, $controller) ->
     $httpBackend = _$httpBackend_
+    postFixture1 =
+      id: "106129962369819294"
+      title: "Happy Valentine's Day!"
+      replies:
+        totalItems: 3
+    postFixture2 =
+      id: "206129962369234564"
+      title: "I Love Pizza!"
+      replies:
+        totalItems: 7
+    postFixture3 =
+      id: "306962365204234564"
+      title: "Wedding Photos!"
+      replies:
+        totalItems: 37
     $httpBackend.whenGET('api/blogs/1.json').respond({name: 'QLH'})
-    $httpBackend.whenGET('api/blogs/1/posts.json').respond([{id: 1, title: 'QLH Post 1'},{id: 2, title: 'QLH Post 2'} ])
-    $httpBackend.whenGET('api/blogs/1/posts/1.json').respond({title: 'QLH Post 1'})
-    $httpBackend.whenGET('api/blogs/1/posts/2.json').respond({title: 'QLH Post 2'})
+    $httpBackend.whenGET('api/blogs/1/posts.json').respond([postFixture1, postFixture2, postFixture3 ])
+    $httpBackend.whenGET('api/blogs/1/posts/106129962369819294.json').respond(postFixture1)
+    $httpBackend.whenGET('api/blogs/1/posts/206129962369234564.json').respond(postFixture2)
+    $httpBackend.whenGET('api/blogs/1/posts/306962365204234564.json').respond(postFixture3)
 
     $routeParams.blogId = 1
     scope = $rootScope.$new()
@@ -28,8 +49,8 @@ describe 'Controller: BlogHomeCtrl', () ->
     expect(scope.blog.name).toBe('QLH') #.notToBeUndefined()
 
   it 'should contain the posts for said blog', () ->
-    expect(scope.posts.length).toBe(2)
-    expect(scope.posts[0].title).toBe('QLH Post 1')
+    expect(scope.posts.length).toBe(3)
+    expect(scope.posts[0].title).toBe('Happy Valentine\'s Day!')
   it 'should be able to select a post', () ->
     scope.selectPost(scope.posts[0])
     $httpBackend.flush()
@@ -40,6 +61,11 @@ describe 'Controller: BlogHomeCtrl', () ->
     scope.selectPost(scope.posts[1])
     expect(scope.posts[0].active).toBe('')
     expect(scope.posts[1].active).toBe('active')
+
+  it 'can order the posts by the number of comments', () ->
+    scope.orderByComments()
+    expect(scope.orderProp).toBe('totalComments');
+    
 
 
     

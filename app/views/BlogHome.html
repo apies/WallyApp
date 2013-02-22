@@ -3,18 +3,28 @@
 
 		<div class="span3 well">
 		  <h3 class="blog-name-header" >{{blog.name}}</h3>
+
+
+			<button class="btn btn-small btn-primary" ng-click="orderByComments()">comments</button>
 	
 			<input ng-model="query" type="text" class="input-medium search-query">
+			
 
 		
 
 		  <ul class="nav nav-pills posts nav-stacked side-nav" >
-		    <li ng-repeat="post in posts | filter:query" ng-class="post.active" > <a ng-click='selectPost(post)' >{{post.title}}</a></li>
+		    <li ng-repeat="post in posts | filter:query | orderBy:orderProp:true:reverse"ng-class="post.active" > 
+		    	<a ng-click='selectPost(post)' >{{post.title}} <b>{{post.replies.totalItems}}</b></a>
+		    </li>
 		  </ul>
 		</div>
 		<div class="span7 well">
+			<form class="form-inline">
+			  <input type="text" class="input-small" ng-model="imageWidth" placeholder="600">
+			  <button ng-click='resizeImages(imageWidth)' class="btn btn-large btn-primary">Resize Images</button>
+			</form>
 			<h3 class="post-title" ng-action="">{{selectedPost.title}}</h3>
-			<button ng-click='resizeImages(post)' class="btn btn-large btn-primary">Resize Images</button>
+			
 			</br>
 			
 			 <div ng-bind-html-unsafe="selectedPost.content" ></div> 

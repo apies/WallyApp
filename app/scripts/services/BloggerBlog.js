@@ -19,12 +19,12 @@
           var blogs;
           blogs = [];
           $http.get("api/blogs.json").then(function(response) {
-            var blog, _i, _len, _ref, _results;
+            var params, _i, _len, _ref, _results;
             _ref = response.data;
             _results = [];
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              blog = _ref[_i];
-              _results.push(blogs.push(blog));
+              params = _ref[_i];
+              _results.push(blogs.push(new BloggerBlog(params)));
             }
             return _results;
           });
@@ -38,10 +38,6 @@
             return blog.instantiate(response.data);
           });
           return blog;
-        };
-
-        BloggerBlog.prototype.say = function() {
-          return "Hello " + this.name;
         };
 
         return BloggerBlog;

@@ -8,11 +8,10 @@
 
 angular.module('WallyAppServices2', ['OrmServiceModule']).factory('BloggerPost', [ '$http', 'BloggerModel', ($http, BloggerModel) ->
 	class BloggerPost extends BloggerModel
-		# constructor: (data) ->
-		# # 	super
-		# # 	@blogId = data['id']
-		# instantiate: () ->
-		# 	super
+		
+		instantiate: (data) ->
+			@totalComments = parseInt(data?['replies']?['totalItems'])
+			super(data)
 
 		@find: ({blogId, postId}) ->
 			post = new BloggerPost
@@ -23,18 +22,9 @@ angular.module('WallyAppServices2', ['OrmServiceModule']).factory('BloggerPost',
 		@all: (blogId) ->
 			posts = []
 			$http.get("api/blogs/#{blogId}/posts.json").then( (response) ->
-				posts.push post for post in response.data
+				posts.push new BloggerPost(params) for params in response.data
 			)
 			posts
-		say: () ->
-			"Hello #{@title}"
-		getImages: () ->
-			images = @content.match(/<img.*>/g).join("").replace(/(s[0-9]{3}[0-9]*)/g, 600)
-
-		resizeImages: () ->
-			biggerContent = @content?.replace(/(s[0-9]{3})\//g, 's600/')
-			@content = biggerContent?.replace(/height="[0-9]{3}"/g, '')?.replace(/width="[0-9]{3}"/g, '')
-			@
 		updateAttributes: () ->
 			@syncAttributes()
 			$http.put("api/blogs/#{@blog.id}/posts/#{@id}.json", @attributes).then( (response) ->
@@ -45,9 +35,6 @@ angular.module('WallyAppServices2', ['OrmServiceModule']).factory('BloggerPost',
 				content: @attributes['content'],
 				title: @attributes['title']
 			} = @
-		sizeAndUpdateImages: () ->
-			@resizeImages()
-			@updateAttributes()
 
 ])
 

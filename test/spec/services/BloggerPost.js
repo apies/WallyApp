@@ -46,8 +46,7 @@
         postId: 1
       });
       $httpBackend.flush();
-      expect(post.title).toBe('Quiet Like Horses Post2');
-      return expect(post.say()).toBe('Hello Quiet Like Horses Post2');
+      return expect(post.title).toBe('Quiet Like Horses Post2');
     });
     it('can it extend BloggerModel', function() {
       var BloggerThing, thing;
@@ -70,14 +69,23 @@
       return expect(thing.thingType).toBe('Blog');
     });
     return it('can send restful put updates to save to server', function() {
-      var post;
+      var post, word;
       post = BloggerPost.find({
         blogId: '2360593805083673688',
         postId: 1
       });
       $httpBackend.flush();
       $httpBackend.expectPUT('api/blogs/2360593805083673688/posts/1.json', postParams).respond(postParams);
-      post.resizeImages();
+      post['title'] = ((function() {
+        var _i, _len, _ref, _results;
+        _ref = post['title'].split(/\s+/);
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          word = _ref[_i];
+          _results.push(word[0].toUpperCase() + word.slice(1).toLowerCase());
+        }
+        return _results;
+      })()).join(' ');
       return post.updateAttributes();
     });
   });

@@ -7,7 +7,7 @@
       return BloggerModel = (function() {
 
         function BloggerModel(data) {
-          angular.extend(this, data);
+          this.instantiate(data);
         }
 
         BloggerModel.prototype.instantiate = function(data) {

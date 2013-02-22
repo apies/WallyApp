@@ -15,6 +15,12 @@
           return BloggerPost.__super__.constructor.apply(this, arguments);
         }
 
+        BloggerPost.prototype.instantiate = function(data) {
+          var _ref;
+          this.totalComments = parseInt(data != null ? (_ref = data['replies']) != null ? _ref['totalItems'] : void 0 : void 0);
+          return BloggerPost.__super__.instantiate.call(this, data);
+        };
+
         BloggerPost.find = function(_arg) {
           var blogId, post, postId;
           blogId = _arg.blogId, postId = _arg.postId;
@@ -29,32 +35,16 @@
           var posts;
           posts = [];
           $http.get("api/blogs/" + blogId + "/posts.json").then(function(response) {
-            var post, _i, _len, _ref, _results;
+            var params, _i, _len, _ref, _results;
             _ref = response.data;
             _results = [];
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              post = _ref[_i];
-              _results.push(posts.push(post));
+              params = _ref[_i];
+              _results.push(posts.push(new BloggerPost(params)));
             }
             return _results;
           });
           return posts;
-        };
-
-        BloggerPost.prototype.say = function() {
-          return "Hello " + this.title;
-        };
-
-        BloggerPost.prototype.getImages = function() {
-          var images;
-          return images = this.content.match(/<img.*>/g).join("").replace(/(s[0-9]{3}[0-9]*)/g, 600);
-        };
-
-        BloggerPost.prototype.resizeImages = function() {
-          var biggerContent, _ref, _ref1;
-          biggerContent = (_ref = this.content) != null ? _ref.replace(/(s[0-9]{3})\//g, 's600/') : void 0;
-          this.content = biggerContent != null ? (_ref1 = biggerContent.replace(/height="[0-9]{3}"/g, '')) != null ? _ref1.replace(/width="[0-9]{3}"/g, '') : void 0 : void 0;
-          return this;
         };
 
         BloggerPost.prototype.updateAttributes = function() {
@@ -66,11 +56,6 @@
 
         BloggerPost.prototype.syncAttributes = function() {
           return this.attributes['content'] = this.content, this.attributes['title'] = this.title, this;
-        };
-
-        BloggerPost.prototype.sizeAndUpdateImages = function() {
-          this.resizeImages();
-          return this.updateAttributes();
         };
 
         return BloggerPost;

@@ -12,6 +12,5 @@ MyBlogsControl = ($scope, BloggerBlog) ->
  		blogg.activeBlog = '' for blogg in $scope.blogs
  		blog.activeBlog = 'active'
  		$scope.selectedBlog = blog
- 		console.log "...#{blog.name}:#{blog.activeBlog}"
 
 angular.module('WallyApp').controller('MyBlogsCtrl', ['$scope', 'BloggerBlog', MyBlogsControl])

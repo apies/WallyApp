@@ -1,2 +1,4 @@
 /app/api/*.json
+/app/scripts/controllers/*.js
+/app/scripts/services/*.js
 .sass-cache/*

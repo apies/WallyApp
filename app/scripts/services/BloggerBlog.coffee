@@ -9,7 +9,7 @@ angular.module('WallyAppServices', ['OrmServiceModule']).factory('BloggerBlog', 
 		@all: () ->
 			blogs = []
 			$http.get("api/blogs.json").then( (response) ->
-				blogs.push blog for blog in response.data
+				blogs.push new BloggerBlog(params) for params in response.data
 			)
 			blogs
 		@find: (blogId) ->
@@ -18,7 +18,5 @@ angular.module('WallyAppServices', ['OrmServiceModule']).factory('BloggerBlog', 
 				blog.instantiate(response.data)
 			)
 			blog
-		say: () ->
-			"Hello #{@name}"
 ])
 

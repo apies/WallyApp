@@ -24,14 +24,20 @@ describe 'WallyApp', () ->
 				expect(current_path).toBe("/myblog/2360593805083673688")
 				expect(element(".blog-name-header").text()).toMatch(/Quiet Like Horses/i)
 			it 'should contain a list of posts', () ->
-				expect(repeater('.posts li').count()).toBe(820)
+				expect(repeater('.posts li').count()).toBeGreaterThan(820)
 			it 'should select a post when i click on one of the posts in the list', () ->
 				element("a:contains('Happy Holidays!')").click()
 				expect(element(".post-title").text()).toBe('Happy Holidays!')
 			it 'should filter the post list as the user types into the search box', () ->
-				expect(repeater('.posts li').count()).toBe(820)
+				expect(repeater('.posts li').count()).toBeGreaterThan(820)
 				input('query').enter('rings')
 				expect(repeater('.posts li').count()).toBeLessThan(80)
+			# it 'can sort the posts by comments', () ->
+			# 	expect(element("a:contains('Happy Holidays!')")).toBe(3)
+				#pause()
+				# element('comments').click()
+				# postSortedPost = element("a:contains('Happy Holidays!')")
+				# expect(postSortedPost.position()).toNotBe(preSortedPost.position())
 
 
 				# current_path = browser().location().url()
